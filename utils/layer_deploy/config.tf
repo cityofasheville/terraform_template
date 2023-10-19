@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "avl-tfstate-store"
-    key    = "terraform/prog_name/layer/terraform_dev.tfstate"
+    key    = "terraform/prog_name/layer/terraform.tfstate"
     region = "us-east-1"
   }
 }
