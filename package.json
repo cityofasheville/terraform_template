@@ -4,7 +4,10 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cd test; sam local invoke --event sam_event.json",
+    "clean": "rm -rf deploy/nodejs && rm -rf deploy/.terraform && rm -rf deploy/.terraform.lock.hcl && rm -rf deploy/*.zip",
+    "deploy": "cd deploy && mkdir -p nodejs && cp ../package*.json nodejs/ && cd nodejs && npm install --omit=dev && cd .. && terraform init && terraform apply -auto-approve -var-file=ca.tfvars",
+    "destroy": "cd deploy && terraform destroy -auto-approve -var-file=ca.tfvars"
   },
   "keywords": [],
   "author": "",

@@ -12,5 +12,6 @@ export const handler = async(event) => {
     let port = event.port;
     let portresult = await isPortReachable(port, { host });
     console.log(`Host: ${host}`);
-    console.log(`Port ${port}: ${portresult}`);
+    console.log(`Port ${port}`);
+    console.log(`${portresult? 'is' : 'is not'} reachable`);
 }
