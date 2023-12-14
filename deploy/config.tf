@@ -31,14 +31,7 @@ output "prog_name_layer_arn" {
 # Zip file for Lambda Function
 data "archive_file" "prog_name_zip" {
   type        = "zip"
-  source {
-    content  =file("../index.js")
-    filename = "index.js"
-  }
-  source {
-    content  = file("../package.json")
-    filename = "package.json"
-  }
+  source_dir  = "${path.module}/function"
   output_path = "${path.module}/function.zip"
 }
 
