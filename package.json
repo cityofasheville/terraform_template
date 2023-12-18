@@ -9,7 +9,7 @@
     "build-layer": "pushd deploy && mkdir -p nodejs && cp -R ../package*.json nodejs/ && cd nodejs && npm install --omit=dev && popd",
     "build-function": "pushd deploy && mkdir -p function && cp -R ../src/* ../package*.json function/ && popd",
     "deploy": "pushd deploy && npm run build-layer && npm run build-function && pwd && terraform init && terraform apply -auto-approve -var-file=ca.tfvars && popd",
-    "destroy": "cd deploy && mkdir -p nodejs && terraform init && terraform destroy -auto-approve -var-file=ca.tfvars"
+    "destroy": "cd deploy && mkdir -p nodejs && mkdir -p function && terraform init && terraform destroy -auto-approve -var-file=ca.tfvars"
   },
   "keywords": [],
   "author": "",
