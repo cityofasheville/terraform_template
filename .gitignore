@@ -6,3 +6,6 @@ nodejs/
 # deploy dirs
 function/
 nodejs/
+
+# environment files
+.env

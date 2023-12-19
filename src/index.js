@@ -14,4 +14,6 @@ export const handler = async(event) => {
     console.log(`Host: ${host}`);
     console.log(`Port ${port}`);
     console.log(`${portresult? 'is' : 'is not'} reachable`);
+
+    console.log(`Example environment variable: ${process.env.CONNECTSTRING}`);
 }

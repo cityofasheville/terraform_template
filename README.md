@@ -15,6 +15,9 @@ To use:
 - Clean: npm run clean (removes local temp files)
 - Destroy: npm run destroy (removes all objects from AWS)
 
+## Environment variables
+deploy/get-env.js allows copying of .env variables to Lambda without appearing in repo. Called from config.tf
+
 ## TODO
 The deploy scripts could be rewritten in JavaScript, which would facilitate cross platform usage. 
-Also could allow scripted copying of .env file to Lambda without them appearing in code.
+
