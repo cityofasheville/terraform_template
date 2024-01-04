@@ -7,6 +7,6 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs20.x
-      Handler: index.handler
+      Handler: src/index.handler
       Timeout: 900
       CodeUri: ..
