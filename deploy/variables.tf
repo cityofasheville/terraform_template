@@ -13,7 +13,12 @@ variable "security_group_ids" {
   description   = "Array of security_group_ids" 
 }
 
-variable "CONNECTSTRING" {
+variable "host" {
   type          = string
-  description   = "Connection string for the database"
+  description   = "Lambda Env variable"
+}
+
+variable "port" {
+  type          = string
+  description   = "Lambda Env variable"
 }

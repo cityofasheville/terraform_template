@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "avl-tfstate-store"
-    key    = "terraform/prog_name/layer/terraform.tfstate"
+    key    = "terraform/${prog_name}/layer/terraform.tfstate"
     region = "us-east-1"
   }
 }
@@ -11,46 +11,40 @@ provider "aws" {
 }
 
 # Zip file for Lambda Layer
-data "archive_file" "prog_name_layer_zip" {
+data "archive_file" "${prog_name}_layer_zip" {
   type        = "zip"
   source_dir  = "${path.module}/nodejs"
   output_path = "${path.module}/layer.zip"
 }
 
 # Lambda Layer
-resource "aws_lambda_layer_version" "prog_name_layer" {
+resource "aws_lambda_layer_version" "${prog_name}_layer" {
   filename   = "${path.module}/layer.zip"
-  source_code_hash = data.archive_file.prog_name_layer_zip.output_base64sha256
-  layer_name = "prog_name_layer"
+  source_code_hash = data.archive_file.${prog_name}_layer_zip.output_base64sha256
+  layer_name = "${prog_name}_layer"
 }
 
-output "prog_name_layer_arn" {
-  value = aws_lambda_layer_version.prog_name_layer.arn
+output "${prog_name}_layer_arn" {
+  value = aws_lambda_layer_version.${prog_name}_layer.arn
 }
 
 # Zip file for Lambda Function
-data "archive_file" "prog_name_zip" {
+data "archive_file" "${prog_name}_zip" {
   type        = "zip"
-  source_dir  = "${path.module}/function"
+  source_dir  = "${path.module}/funcdir"
   output_path = "${path.module}/function.zip"
 }
 
-#Env vars
-data "external" "env" {
-  program = ["node", "--env-file=../.env", "./get-env.js"]
-}
-
-
 # Lambda Function
-resource "aws_lambda_function" "prog_name" {
+resource "aws_lambda_function" "${prog_name}" {
   description      = "Lambda description" 
-  function_name    = "prog_name"
-  role             = aws_iam_role.prog_name-role.arn
+  function_name    = "${prog_name}"
+  role             = aws_iam_role.${prog_name}-role.arn
   handler          = "index.handler"
   runtime          = "nodejs20.x"
-  filename = data.archive_file.prog_name_zip.output_path
-  source_code_hash = data.archive_file.prog_name_zip.output_base64sha256
-  layers = [aws_lambda_layer_version.prog_name_layer.arn]
+  filename = data.archive_file.${prog_name}_zip.output_path
+  source_code_hash = data.archive_file.${prog_name}_zip.output_base64sha256
+  layers = [aws_lambda_layer_version.${prog_name}_layer.arn]
   # timeout          = 900
   # memory_size      = 256
   vpc_config {
@@ -58,8 +52,8 @@ resource "aws_lambda_function" "prog_name" {
     security_group_ids = var.security_group_ids
   }
   tags = {
-    Name          = "prog_name"
-    "coa:application" = "prog_name"
+    Name          = "${prog_name}"
+    "coa:application" = "${prog_name}"
     "coa:department"  = "information-technology"
     "coa:owner"       = "jtwilson@ashevillenc.gov"
     "coa:owner-team"  = "dev"
@@ -67,11 +61,13 @@ resource "aws_lambda_function" "prog_name" {
   }
   environment {
     variables = {
-      "CONNECTSTRING": data.external.env.result.CONNECTSTRING
+      "host": var.host
+      "port": var.port
+
     }
   }
 }
 
-output "prog_name_arn" {
-  value = aws_lambda_function.prog_name.arn
+output "${prog_name}_arn" {
+  value = aws_lambda_function.${prog_name}.arn
 }

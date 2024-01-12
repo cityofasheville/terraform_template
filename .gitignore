@@ -4,7 +4,8 @@ node_modules/
 nodejs/
 
 # deploy dirs
-function/
+build/
+funcdir/
 nodejs/
 
 # environment files
