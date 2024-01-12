@@ -5,7 +5,7 @@ Sample code in index.js runs a port test
 To use:
 ## Prerequisites
 - Program code goes in src dir.
-- Do a full replace of the string "prog_name" with your program name.
+- Add the program name as environment variable in the .env file as prog_name=
 - Adjust the role policies needed in deploy/role.tf
   - If you don't need VPC, also remove subnet_ids and security_group_ids from 5 files.
 
