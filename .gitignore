@@ -1,12 +1,9 @@
 node_modules/
-*zip
-.terraform*
-nodejs/
 
 # deploy dirs
 build/
-funcdir/
-nodejs/
 
 # environment files
 .env
+
+.DS_Store

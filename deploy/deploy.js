@@ -2,6 +2,7 @@
 import { promises as fs } from 'fs';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
+// import { execSync } from 'child_process';
 
 const __dirname = dirname(fileURLToPath(import.meta.url)); // current directory
 
@@ -37,9 +38,20 @@ try {
   await fs.copyFile('../package.json', './build/nodejs/package.json');
   await fs.copyFile('../package-lock.json', './build/nodejs/package-lock.json');
 
+    // // OR FOR PYTHON: Copy files into "python" and "funcdir" subdirectories for zip files
+    // await fs.copyFile('../src/requirements.txt', './build/requirements.txt');
+    // execSync('cd build/ && ls && sam build --use-container');
+    // await fs.mkdir('./build/python');
+    // await fs.mkdir('./build/python/python');
+    // await fs.rename('./build/.aws-sam/build/ftppy/', './build/python/python/', { recursive: true });
+
   await fs.mkdir('./build/funcdir');
   await fs.cp('../src/', './build/funcdir/', { recursive: true });
   await fs.copyFile('../package.json', './build/funcdir/package.json');
+
+
+  
+
 }
 catch (err) {
   console.log(err);

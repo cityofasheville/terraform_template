@@ -22,3 +22,8 @@ variable "port" {
   type          = string
   description   = "Lambda Env variable"
 }
+
+variable "prog_name" {
+  type          = string
+  description   = "Name of Program"
+}
