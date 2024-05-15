@@ -37,7 +37,7 @@ data "archive_file" "${prog_name}_zip" {
 
 # Lambda Function
 resource "aws_lambda_function" "${prog_name}" {
-  description      = "Lambda description" 
+  description      = "${prog_name}" 
   function_name    = "${prog_name}"
   role             = aws_iam_role.${prog_name}-role.arn
   handler          = "index.handler"
@@ -45,7 +45,7 @@ resource "aws_lambda_function" "${prog_name}" {
   filename = data.archive_file.${prog_name}_zip.output_path
   source_code_hash = data.archive_file.${prog_name}_zip.output_base64sha256
   layers = [aws_lambda_layer_version.${prog_name}_layer.arn]
-  # timeout          = 900
+  timeout          = 900
   # memory_size      = 256
   vpc_config {
     subnet_ids         = var.subnet_ids
@@ -57,7 +57,7 @@ resource "aws_lambda_function" "${prog_name}" {
     "coa:department"  = "information-technology"
     "coa:owner"       = "jtwilson@ashevillenc.gov"
     "coa:owner-team"  = "dev"
-    Description   = "Lambda description"
+    Description   = "${prog_name}"
   }
   environment {
     variables = {

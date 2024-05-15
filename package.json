@@ -4,8 +4,8 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "start": "cd test; sam local invoke --event sam_event.json",
-    "clean": "rm -rf deploy/build && rm -rf deploy/.terraform && rm -rf deploy/.terraform.lock.hcl" ,
+    "start": "node src/local.js",
+    "clean": "rm -rf deploy/build && rm -rf node_modules/",
     "runterraform": "cd deploy/build && terraform init && terraform apply -auto-approve -var-file=../../.env",
     "deploy": "cd deploy && node deploy.js && npm install --prefix ./build/nodejs --omit-dev && npm run runterraform",
     "destroy": "cd deploy/build && terraform init && terraform destroy -auto-approve -var-file=../../.env"
@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "is-port-reachable": "^3.0.0"
   }
 }
