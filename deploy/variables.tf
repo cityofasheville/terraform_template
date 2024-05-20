@@ -23,7 +23,11 @@ variable "port" {
 }
 
 # Name of Lambda
-variable "prog_name" {
+variable "production_name" {
+  type          = string
+  description   = "Name of Program"
+}
+variable "development_name" {
   type          = string
   description   = "Name of Program"
 }
