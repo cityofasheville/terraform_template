@@ -47,7 +47,6 @@ try {
   terraformFiles = terraformFiles
     .filter(file => file.endsWith('.tf'));
   for (const file of terraformFiles) {
-    console.log(file);
     let data = await fs.readFile(`${buildDir}/` + file, 'utf8');
     let result = data.replace(/\$\{prog_name\}/g, lambdaName);
     await fs.writeFile(`${buildDir}/` + file, result, 'utf8');
@@ -60,7 +59,7 @@ try {
 
   // // OR FOR PYTHON: Copy files into "python" and "funcdir" subdirectories for zip files
   // await fs.copyFile('../src/requirements.txt', `${buildDir}/requirements.txt`);
-  // execSync('cd build/ && ls && sam build --use-container');
+  // execSync(`cd ${buildDir}/ && ls && sam build --use-container`);
   // await fs.mkdir(`${buildDir}/python`);
   // await fs.mkdir(`${buildDir}/python/python`);
   // await fs.rename(`${buildDir}/.aws-sam/build/ftppy/`, `${buildDir}/python/python/`, { recursive: true });
