@@ -1,9 +1,11 @@
 node_modules/
+__pycache__
 
 # deploy dirs
 build/
 
 # environment files
 .env
+deploy.yaml
 
 .DS_Store

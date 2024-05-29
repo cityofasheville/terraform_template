@@ -1,28 +1,38 @@
 # Terraform Template
-Template for creating Node.js Lambdas, with role and Lambda Layers.
-Sample code in index.js runs a port test
+Template for deploying Node.js or Python Lambdas to AWS using Terraform, with Role and Lambda Layers.
+See the file ```deploy/example.deploy.yaml``` for available options.
+Sample code in src/index.js runs a port test
 
-## Usage
-### Prerequisites
-- Program code goes in src dir.
-- Add the names of the Lambdas as environment variable in the .env file as production_name="" and development_name="" (see Environment Variables below)
-- Adjust the role policies needed in deploy/role.tf
-  - If you don't need VPC, also remove subnet_ids and security_group_ids from 5 files.
+## Setting Up
+- Copy the file ```deploy/example.deploy.yaml``` to ```deploy/deploy.yaml```.
+- If your program uses environment variables, copy ```.env.example``` to ```.env```.
+- Terraform will need an empty S3 Bucket to store its state file. This allows sharing of state with your esteemed colleagues.
+- Program code goes in src/ dir.
+  - For Node.js:
+    - The file src/index.js should export the function handler.
+    - The file src/local.js can import index.js for local testing.
+    - Any other program files and subdirs needed can also go in src/.
+  - For Python:
+    - Set nodejs_or_python to python in ```deploy.yaml```. 
+    - The file src/index.py should export the function handler.
+    - You can include a requirements.txt file in src/
 - Make sure you have AWS administrator permissions to deploy.
 
-### Commands
-- Test Locally: npm start
-- Deploy: 
-  - npm run deploy prod
-  - npm run deploy dev
-- Destroy: (removes all objects from AWS)
-  - npm run destroy prod
-  - npm run destroy dev 
-- Clean: npm run clean (removes local temp files)
+### Usage
+First run ```npm install```
 
-### Environment variables
-Environment variables can be included in the file .env
-Copy the format from .env.example
-Notice that this is a TF formatted env file with double quotes around values.
-In the env.example, there are program name variables: _production_name_ and _development_name_ which are used to name all the AWS infrastructure.
-All the other variables are Terraform variables, (eg. they appear in a TF variable block,) and can be used to build infrastructure or as environment variables for the lambda.
+```package.json``` has these scripts:
+- Test Locally: 
+  - ```npm start``` (or for a Python program: ```npm run startpy```)
+- Deploy: 
+  - ```npm run deploy prod```
+  - ```npm run deploy dev```
+- Destroy: (removes all objects from AWS)
+  - ```npm run destroy prod```
+  - ```npm run destroy dev``` 
+- Clean: 
+  - ```npm run clean``` (removes local temp files)
+
+
+### Local dev
+Before running ```npm run startpy```, you should create a venv and run ```pip3 install -r requirements.txt``` or some other magical Python incantation.

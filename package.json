@@ -5,15 +5,17 @@
   "type": "module",
   "scripts": {
     "start": "node --env-file=.env src/local.js",
-    "clean": "rm -rf deploy/build && rm -rf node_modules/",
+    "startpy": "python3 src/local.py",
+    "clean": "rm -rf deploy/build",
     "deploy": "cd deploy && node deploy.js",
     "destroy": "cd deploy && node destroy.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "yaml": "^2.4.2"
+  },
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "is-port-reachable": "^3.0.0"
   }
 }
