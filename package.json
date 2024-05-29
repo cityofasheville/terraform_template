@@ -17,5 +17,6 @@
     "yaml": "^2.4.2"
   },
   "dependencies": {
+    "is-port-reachable": "^4.0.0"
   }
 }
