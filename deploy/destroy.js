@@ -13,8 +13,6 @@ try {
 
   let buildDir = 'build/';
 
-  // get Lambda name from .env variables
-  let env = await fs.readFile('../.env', 'utf8');
   if (deployType === 'prod') {
     buildDir += deployType;
   } else if (deployType === 'dev') {

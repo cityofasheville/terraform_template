@@ -18,8 +18,12 @@ try {
   config.deploy_dir = __deploy_dir;
 
   // get Lambda environment variables from .env file
-  config.env_variables = await fs.readFile(`${__deploy_dir}/../.env`, 'utf8');
-  config.env_variables = config.env_variables.split('\n').filter(line => !line.startsWith('#')).join('\n');
+  try {
+    config.env_variables = await fs.readFile(`${__deploy_dir}/../.env`, 'utf8');
+    config.env_variables = config.env_variables.split('\n').filter(line => !line.startsWith('#')).join('\n');
+  } catch (err) {
+    config.env_variables = '';
+  }
 
   // Get dev or prod from command line
   if (process.argv.length !== 3 || (process.argv[2] !== 'prod' && process.argv[2] !== 'dev')) {
