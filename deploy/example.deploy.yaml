@@ -5,7 +5,7 @@ lambda_names:
   development_name: template-dev # Name of the development lambda
 region: us-east-1                # AWS region
 state_bucket: avl-tfstate-store  # S3 bucket to store terraform state
-nodejs_or_python: nodejs         # python compile not tested
+nodejs_or_python: nodejs         # set to nodejs or python
 lambda_options:                  # Enable access to AWS features. Must be 'true' or 'false'
   vpc: 'false'
   api_gateway: 'false'
