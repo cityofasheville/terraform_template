@@ -3,6 +3,9 @@ Template for deploying Node.js or Python Lambdas to AWS using Terraform, with Ro
 See the file ```deploy/example.deploy.yaml``` for available options.
 Sample code in src/index.js runs a port test
 
+## Installing prerequisites
+This script uses Node.js and Terraform to deploy. If you are deploying Python you obviously need that too, and if you require cross-compiling the Python also install AWS SAM and Docker.
+
 ## Setting Up
 - Copy the file ```deploy/example.deploy.yaml``` to ```deploy/deploy.yaml```.
 - If your program uses environment variables, copy ```.env.example``` to ```.env```.
