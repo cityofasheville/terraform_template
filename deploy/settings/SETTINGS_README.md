@@ -1,0 +1,1 @@
+The ```settings/``` directory has Javascript files with Terraform settings as Tagged Template Literals. These create actual Terraform files in a build/ dir when you run a deploy. If your program needs different settings from the default, (like CORS, or whatever) you can change them in these templates.
