@@ -35,22 +35,24 @@ try {
 
   // determine Lambda name
   if (deploy_type === 'production') {
-    config.prog_name = config.lambda_names.lambda_name;
+    config.prog_name = config.lambda_name;
     config.build_dir = 'build/prod';
   } else if (deploy_type === 'development') {
-    config.prog_name = config.lambda_names.lambda_name + '-dev';
+    config.prog_name = config.lambda_name + '-dev';
     config.build_dir = 'build/dev';
   } else {
-    config.prog_name = config.lambda_names.lambda_name + '-' + deploy_type;
+    config.prog_name = config.lambda_name + '-' + deploy_type;
     config.build_dir = 'build/' + deploy_type;
   }
 
   // Set domain name for API Gateway
   if (config.lambda_options.api_gateway === 'true') {
-    if (deploy_type === 'prod') {
-      config.domain_name = config.api_gateway_settings.production_domain_name;
-    } else if (deploy_type === 'dev') {
-      config.domain_name = config.api_gateway_settings.development_domain_name;
+    if (deploy_type === 'production') {
+      config.domain_name = config.api_gateway_settings.domain_name;
+    } else if (deploy_type === 'development') {
+      config.domain_name = 'dev-' + config.api_gateway_settings.domain_name;
+    } else {
+      config.domain_name = deploy_type + '-' + config.api_gateway_settings.domain_name;
     }
   } else {
     config.domain_name = '';
