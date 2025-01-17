@@ -16,6 +16,7 @@ try {
   const file = await fs.readFile(`${__deploy_dir}/deploy.yaml`, 'utf8');
   let config = YAML.parse(file);
   config.deploy_dir = __deploy_dir;
+  const gitBranch = execSync('git branch --show-current').toString().trim();
 
   // get Lambda environment variables from .env file
   try {
@@ -26,19 +27,22 @@ try {
   }
 
   // Get dev or prod from command line
-  if (process.argv.length !== 3 || (process.argv[2] !== 'prod' && process.argv[2] !== 'dev')) {
-    console.error('Usage: npm run deploy prod|dev');
-    process.exit(1);
-  }
-  let deploy_type = process.argv[2]; // prod or dev
+  // if (process.argv.length !== 3 || (process.argv[2] !== 'prod' && process.argv[2] !== 'dev')) {
+  //   console.error('Usage: npm run deploy prod|dev');
+  //   process.exit(1);
+  // }
+  let deploy_type = gitBranch; // prod or dev
 
   // determine Lambda name
-  if (deploy_type === 'prod') {
-    config.prog_name = config.lambda_names.production_name;
+  if (deploy_type === 'production') {
+    config.prog_name = config.lambda_names.lambda_name;
     config.build_dir = 'build/prod';
-  } else if (deploy_type === 'dev') {
-    config.prog_name = config.lambda_names.development_name;
+  } else if (deploy_type === 'development') {
+    config.prog_name = config.lambda_names.lambda_name + '-dev';
     config.build_dir = 'build/dev';
+  } else {
+    config.prog_name = config.lambda_names.lambda_name + '-' + deploy_type;
+    config.build_dir = 'build/' + deploy_type;
   }
 
   // Set domain name for API Gateway
