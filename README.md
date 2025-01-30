@@ -28,11 +28,9 @@ First run ```npm install```
 - Test Locally: 
   - ```npm start``` (or for a Python program: ```npm run startpy```)
 - Deploy: 
-  - ```npm run deploy prod```
-  - ```npm run deploy dev```
+  - ```npm run deploy```
 - Destroy: (removes all objects from AWS)
-  - ```npm run destroy prod```
-  - ```npm run destroy dev``` 
+  - ```npm run destroy```
 - Clean: 
   - ```npm run clean``` (removes local temp files)
 

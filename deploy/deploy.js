@@ -34,25 +34,38 @@ try {
   let deploy_type = gitBranch; // prod or dev
 
   // determine Lambda name
-  if (deploy_type === 'production') {
+  if (deploy_type === 'production' || deploy_type === 'main') {
     config.prog_name = config.lambda_name;
     config.build_dir = 'build/prod';
   } else if (deploy_type === 'development') {
-    config.prog_name = config.lambda_name + '-dev';
+    config.prog_name = config.lambda_name + '_dev';
     config.build_dir = 'build/dev';
   } else {
-    config.prog_name = config.lambda_name + '-' + deploy_type;
+    config.prog_name = config.lambda_name + '_' + deploy_type;
     config.build_dir = 'build/' + deploy_type;
   }
 
-  // Set domain name for API Gateway
+  // Set domain name and certificate for API Gateway
   if (config.lambda_options.api_gateway === 'true') {
-    if (deploy_type === 'production') {
-      config.domain_name = config.api_gateway_settings.domain_name;
+    if (deploy_type === 'production' || deploy_type === 'main') {
+      config.domain_name = config.api_gateway_settings.production_domain_name;
+      config.certificate_arn = config.api_gateway_settings.production_certificate_arn;
     } else if (deploy_type === 'development') {
-      config.domain_name = 'dev-' + config.api_gateway_settings.domain_name;
+      if (config.api_gateway_settings.development_domain_name === null) {
+        config.domain_name = 'dev-' + config.api_gateway_settings.production_domain_name;
+        config.certificate_arn = config.api_gateway_settings.production_certificate_arn;
+      } else {
+        config.domain_name = 'dev-' + config.api_gateway_settings.development_domain_name;
+        config.certificate_arn = config.api_gateway_settings.development_certificate_arn;
+      }
     } else {
-      config.domain_name = deploy_type + '-' + config.api_gateway_settings.domain_name;
+      if (config.api_gateway_settings.development_domain_name === null) {
+        config.domain_name = deploy_type + '-' + config.api_gateway_settings.production_domain_name;
+        config.certificate_arn = config.api_gateway_settings.production_certificate_arn;
+      } else {
+        config.domain_name = deploy_type + '-' + config.api_gateway_settings.development_domain_name;
+        config.certificate_arn = config.api_gateway_settings.development_certificate_arn;
+      }
     }
   } else {
     config.domain_name = '';

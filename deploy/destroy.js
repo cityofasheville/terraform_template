@@ -10,7 +10,7 @@ try {
 
   let buildDir = 'build/';
 
-  if (deployType === 'production') {
+  if (deployType === 'production' || deployType === 'main') {
     buildDir += 'prod';
   } else if (deployType === 'development') {
     buildDir += 'dev';
