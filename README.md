@@ -34,6 +34,8 @@ First run ```npm install```
 - Clean: 
   - ```npm run clean``` (removes local temp files)
 
+The Deploy/Destroy commands use the name of the active GitHub branch when creating AWS resources.
+For example, if the active GitHub branch is "feature" and the name of the resource is "template", the resource is named "template_feature". For API gateway domains, it's "feature-template.ashevillenc.gov". Production (or main) branches do not get a prefix/suffix.
 
 ### Local dev
 Before running ```npm run startpy```, you should create a venv and run ```pip3 install -r requirements.txt``` or some other magical Python incantation.
