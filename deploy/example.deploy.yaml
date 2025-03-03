@@ -1,6 +1,7 @@
 # Required Fields
 
 lambda_name: template           # Name of the production lambda. GitHub branch name will be added as a suffix for dev and feature branches
+description: 'Description for Lambda function'
 region: us-east-1                # AWS region
 state_bucket: avl-tfstate-store  # S3 bucket to store terraform state
 nodejs_or_python: nodejs         # set to nodejs or python
