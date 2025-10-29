@@ -1,22 +1,34 @@
 {
-  "name": "terraform_template",
+  "name": "terraform-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "Copies Terraform template files to /deploy",
+  "main": "index.js",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cityofasheville/terraform_template.git"
+  },
+  "homepage": "https://github.com/cityofasheville/terraform_template.git#readme",
   "scripts": {
     "start": "node --env-file=.env src/local.js",
     "startpy": "python3 src/local.py",
-    "clean": "rm -rf deploy/build",
-    "deploy": "cd deploy && node deploy.js",
-    "destroy": "cd deploy && node destroy.js"
+    "clean": "rm -rf deploy/build && rm -rf node_modules",
+    "deploy": "node deploy/deploy.js",
+    "destroy": "node deploy/destroy.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
+    "yargs": "^18.0.0",
     "yaml": "^2.4.2"
   },
-  "dependencies": {
-    "is-port-reachable": "^4.0.0"
+  "files": [
+    "index.js",
+    "cli.js",
+    "lib/"
+  ],
+  "bin": {
+    "terraform-template": "./cli.js"
   }
 }
