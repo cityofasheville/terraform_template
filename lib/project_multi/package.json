@@ -1,0 +1,22 @@
+{
+  "name": "multi_lambda_template",
+  "version": "1.0.0",
+  "description": "Template for deploying multiple Node.js or Python Lambdas to AWS using Terraform, with Role and Lambda Layers. See the file ```example.deploy.yaml``` for available options.",
+  "type": "module",
+  "scripts": {
+    "init-all": "terraform-template init-all",
+    "deploy-all": "terraform-template deploy-all",
+    "destroy-all": "terraform-template destroy-all",
+    "clean-all": "terraform-template clean-all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cityofasheville/lambda_template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "yaml": "^2.8.1"
+  }
+}

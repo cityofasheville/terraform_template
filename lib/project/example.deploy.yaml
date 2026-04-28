@@ -8,6 +8,7 @@ nodejs_or_python: nodejs         # set to nodejs or python
 lambda_options:                  # Enable access to AWS features. Must be 'true' or 'false'
   vpc: 'false'
   api_gateway: 'false'
+  lambda_authorizer: 'false'     # Requires an auth/index.js file in the root directory
   lambda_url: 'false'
   secrets_manager: 'false'
   invoke_lambda: 'false'

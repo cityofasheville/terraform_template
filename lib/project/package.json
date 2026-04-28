@@ -1,0 +1,21 @@
+{
+  "name": "single_lambda_template",
+  "version": "1.0.0",
+  "description": "Template for deploying a single Node.js or Python Lambda to AWS using Terraform, with Role and Lambda Layers. See the file ```deploy/example.deploy.yaml``` for available options. Sample code in src/index.js runs a port test",
+  "type": "module",
+  "scripts": {
+    "init": "terraform-template init",
+    "start": "node --env-file=.env src/local.js",
+    "startpy": "python3 src/local.py",
+    "clean": "rm -rf deploy && rm -rf node_modules",
+    "deploy": "terraform-template init && node deploy/deploy.js",
+    "destroy": "node deploy/destroy.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "is-port-reachable": "^4.0.0",
+    "yaml": "^2.8.1"
+  }
+}
